@@ -33,8 +33,6 @@ phases:
       - echo ${ENVIRONMENT}
       - echo Build started on `date`
       - echo Building the Docker image...
-      - pwd
-      - ls -laht
       - docker build -t ${REPOSITORY_URI_NGINX}:latest --build-arg ENVIRONMENT=${ENVIRONMENT} -f ./ecs/environments/${ENVIRONMENT}/docker/nginx/Dockerfile .
       - docker build -t ${REPOSITORY_URI_PHP_FPM}:latest --build-arg ENVIRONMENT=${ENVIRONMENT} -f ./ecs/environments/${ENVIRONMENT}/docker/php-fpm/Dockerfile .
       - docker build -t ${REPOSITORY_URI_FLUENTBIT}:latest --build-arg ENVIRONMENT=${ENVIRONMENT} -f ./ecs/environments/${ENVIRONMENT}/docker/fluentbit/Dockerfile .
