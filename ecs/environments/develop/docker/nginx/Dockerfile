@@ -16,7 +16,7 @@ RUN nginx -t
 
 RUN apt -y update
 
-RUN mkdir -p /var/www/app
+RUN mkdir -p /var/www/app/public
 COPY ./public /var/www/app/public
 WORKDIR /var/www/app/public
 RUN chown -R www-data:www-data /var/www/app
