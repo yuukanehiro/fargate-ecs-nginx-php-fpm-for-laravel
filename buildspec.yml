@@ -3,6 +3,7 @@ version: 0.2
 env:
   variables:
     AWS_REGION: ap-northeast-1
+    AWS_ACCOUNT_ID: 090123123123
   parameter-store:
     DOCKER_USER: /app/common/docker_hub/user
     DOCKER_TOKEN: /app/common/docker_hub/token
@@ -17,14 +18,14 @@ phases:
       - echo Logging in to Amazon ECR...
       - pip install awscli --upgrade
       - aws --version
-      - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin 090123123123.dkr.ecr.${AWS_REGION}.amazonaws.com
+      - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
       - echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
       - IMAGE_NAME_NGINX=service-api-nginx-${ENVIRONMENT}
       - IMAGE_NAME_PHP_FPM=service-api-php-fpm-${ENVIRONMENT}
       - IMAGE_NAME_FLUENTBIT=service-api-fluentbit-${ENVIRONMENT}
-      - REPOSITORY_URI_NGINX=090123123123.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME_NGINX}
-      - REPOSITORY_URI_PHP_FPM=090123123123.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME_PHP_FPM}
-      - REPOSITORY_URI_FLUENTBIT=090123123123.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME_FLUENTBIT}
+      - REPOSITORY_URI_NGINX=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME_NGINX}
+      - REPOSITORY_URI_PHP_FPM=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME_PHP_FPM}
+      - REPOSITORY_URI_FLUENTBIT=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME_FLUENTBIT}
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build: #ビルドテスト
