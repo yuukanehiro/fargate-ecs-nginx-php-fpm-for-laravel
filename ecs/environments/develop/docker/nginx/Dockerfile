@@ -17,8 +17,9 @@ RUN nginx -t
 RUN apt -y update
 
 RUN mkdir -p /var/www/app
-COPY ./ /var/www/app/
-WORKDIR /var/www/app
+COPY ./public /var/www/app/public
+WORKDIR /var/www/app/public
 RUN chown -R www-data:www-data /var/www/app
 
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
 EXPOSE 80
