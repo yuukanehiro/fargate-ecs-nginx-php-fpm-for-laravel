@@ -1,6 +1,6 @@
 {
   "ipcMode": null,
-  "executionRoleArn": "arn:aws:iam::090123123123:role/ecs-service-role-develop",
+  "executionRoleArn": "arn:aws:iam::AWS_ACCOUNT_ID:role/ecs-service-role-develop",
   "containerDefinitions": [
     {
       "name": "service-api-nginx-develop",
@@ -353,12 +353,12 @@
   ],
   "placementConstraints": [],
   "memory": "4096",
-  "taskRoleArn": "arn:aws:iam::090123123123:role/ecs-service-role-develop",
+  "taskRoleArn": "arn:aws:iam::AWS_ACCOUNT_ID:role/ecs-service-role-develop",
   "compatibilities": [
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:090123123123:task-definition/service-api-develop",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:AWS_ACCOUNT_ID:task-definition/service-api-develop",
   "family": "service-api-develop",
   "requiresAttributes": [
     {

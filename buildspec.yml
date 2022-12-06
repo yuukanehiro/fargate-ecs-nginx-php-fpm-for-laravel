@@ -50,7 +50,7 @@ phases:
       - docker push ${REPOSITORY_URI_FLUENTBIT}:$IMAGE_TAG
       - echo Writing image definitions file...
       - echo ${ENVIRONMENT}
-      - cat ./ecs/environments/${ENVIRONMENT}/task_definition_template.json | sed -e s@\<REPOSITORY_URI_NGINX\>@$REPOSITORY_URI_NGINX:$IMAGE_TAG@ -e s@\<REPOSITORY_URI_FLUENTBIT\>@$REPOSITORY_URI_FLUENTBIT:$IMAGE_TAG@ -e s@\<REPOSITORY_URI_PHP_FPM\>@$REPOSITORY_URI_PHP_FPM:$IMAGE_TAG@ -e s@\<ENVIRONMENT\>@$ENVIRONMENT@ > ./ecs/environments/${ENVIRONMENT}/task_definition.json
+      - cat ./ecs/environments/${ENVIRONMENT}/task_definition_template.json | sed -e s@\<REPOSITORY_URI_NGINX\>@$REPOSITORY_URI_NGINX:$IMAGE_TAG@ -e s@\<REPOSITORY_URI_FLUENTBIT\>@$REPOSITORY_URI_FLUENTBIT:$IMAGE_TAG@ -e s@\<REPOSITORY_URI_PHP_FPM\>@$REPOSITORY_URI_PHP_FPM:$IMAGE_TAG@ -e s@\<ENVIRONMENT\>@$ENVIRONMENT@ -e "s@AWS_ACCOUNT_ID@$AWS_ACCOUNT_ID@g" > ./ecs/environments/${ENVIRONMENT}/task_definition.json
       - cat ./ecs/environments/${ENVIRONMENT}/task_definition.json
 artifacts:
     files:
