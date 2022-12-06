@@ -83,7 +83,12 @@
       ],
       "disableNetworking": null,
       "interactive": null,
-      "healthCheck": null,
+      "healthCheck": {
+        "command": ["CMD-SHELL", "curl -f http://localhost/check-health-status || exit 1"],
+        "interval": 5,
+        "timeout": 5,
+        "retries": 10
+      },
       "essential": true,
       "links": null,
       "hostname": null,
