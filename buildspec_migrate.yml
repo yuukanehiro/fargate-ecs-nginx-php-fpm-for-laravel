@@ -4,12 +4,12 @@ env:
   parameter-store:
     DOCKER_USER: /app/common/docker_hub/user
     DOCKER_TOKEN: /app/common/docker_hub/token
-    APP_KEY: /app/${ENVIRONMENT}/ecs/auth-api/env/APP_KEY
-    DB_HOST: /app/${ENVIRONMENT}/ecs/auth-api/env/DB_HOST
-    DB_PORT: /app/${ENVIRONMENT}/ecs/auth-api/env/DB_PORT
-    DB_DATABASE: /app/${ENVIRONMENT}/ecs/auth-api/env/DB_DATABASE
-    DB_USERNAME: /app/${ENVIRONMENT}/ecs/auth-api/env/DB_USERNAME
-    DB_PASSWORD: /app/${ENVIRONMENT}/ecs/auth-api/env/DB_PASSWORD
+    APP_KEY: /app/${ENVIRONMENT}/ecs/service/example1/env/APP_KEY
+    DB_HOST: /app/${ENVIRONMENT}/ecs/service/example1/env/DB_HOST
+    DB_PORT: /app/${ENVIRONMENT}/ecs/service/example1/env/DB_PORT
+    DB_DATABASE: /app/${ENVIRONMENT}/ecs/service/example1/env/DB_DATABASE
+    DB_USERNAME: /app/${ENVIRONMENT}/ecs/service/example1/env/DB_USERNAME
+    DB_PASSWORD: /app/${ENVIRONMENT}/ecs/service/example1/env/DB_PASSWORD
 phases:
   install:
     commands:
