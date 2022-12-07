@@ -1,0 +1,34 @@
+version: 0.2
+
+env:
+  parameter-store:
+    DOCKER_USER: /app/common/docker_hub/user
+    DOCKER_TOKEN: /app/common/docker_hub/token
+    APP_KEY: /app/${ENVIRONMENT}/ecs/auth-api/env/APP_KEY
+    DB_HOST: /app/${ENVIRONMENT}/ecs/auth-api/env/DB_HOST
+    DB_PORT: /app/${ENVIRONMENT}/ecs/auth-api/env/DB_PORT
+    DB_DATABASE: /app/${ENVIRONMENT}/ecs/auth-api/env/DB_DATABASE
+    DB_USERNAME: /app/${ENVIRONMENT}/ecs/auth-api/env/DB_USERNAME
+    DB_PASSWORD: /app/${ENVIRONMENT}/ecs/auth-api/env/DB_PASSWORD
+phases:
+  install:
+    commands:
+  pre_build: # ビルド前処理
+    commands:
+      - echo Clean file...
+      - rm -rf .git .gitignore README.md
+      - curl -L "https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
+      - docker-compose --version
+      - echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
+  build:
+    commands:
+      - echo ${ENVIRONMENT}
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker-compose -f docker-compose-migrate.yml build
+      - docker-compose -f docker-compose-migrate.yml up -d
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Start DB migrate
+      - docker exec php-fpm php /var/www/app/artisan migrate --force

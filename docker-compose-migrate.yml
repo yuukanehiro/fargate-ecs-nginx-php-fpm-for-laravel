@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  php-fpm:
+    build:
+      context: .
+      dockerfile: ./ecs/environments/${ENVIRONMENT}/docker/php-fpm/Dockerfile
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
+    container_name: php-fpm
+    environment:
+      # buildspec_migrate.ymlの環境変数を注入
+      APP_KEY: ${APP_KEY}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "8080:80"
