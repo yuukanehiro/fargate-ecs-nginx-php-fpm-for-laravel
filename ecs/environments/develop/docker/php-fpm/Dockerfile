@@ -16,7 +16,8 @@ RUN set -eux \
  && rm -rf /tmp/*
 
 
-ADD ./ecs/environments/${ENVIRONMENT}/docker/php-fpm/conf/zzz-.conf /usr/local/etc/php-fpm.d/zzz-.conf
+COPY ./ecs/environments/${ENVIRONMENT}/docker/php-fpm/conf/zzz-.conf /usr/local/etc/php-fpm.d/zzz-.conf
+COPY ./ecs/environments/${ENVIRONMENT}/docker/php-fpm/conf/php.ini /usr/local/etc/php/php.ini
 
 RUN mkdir -p /var/www/app
 COPY ./src/ /var/www/app/
