@@ -1,7 +1,7 @@
 ARG PHP_VERSION=7.4
 FROM php:${PHP_VERSION}-fpm-alpine
 
-ARG ENVIRONMENT="local" // buildspec-ciで指定する
+ARG ENVIRONMENT="local" // override by CI/CD! ["develop"|"staging"|"production"]
 ENV TZ Asia/Tokyo
 
 # Git と PHP 拡張のインストール

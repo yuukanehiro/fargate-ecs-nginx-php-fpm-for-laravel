@@ -1,6 +1,6 @@
 FROM nginx:latest
 
-ARG ENVIRONMENT="local" // buildspec-ciで指定する
+ARG ENVIRONMENT="local" // override by CI/CD! ["develop"|"staging"|"production"]
 ARG PHP_FPM_CONTAINER_WWW_DATA_USER_ID=82
 ARG PHP_FPM_CONTAINER_WWW_DATA_GROUP_ID=82
 
@@ -17,7 +17,7 @@ RUN nginx -t
 RUN apt -y update
 
 RUN mkdir -p /var/www/app/public
-COPY ./public /var/www/app/public
+COPY ./src/public /var/www/app/public
 WORKDIR /var/www/app/public
 RUN chown -R www-data:www-data /var/www/app
 
