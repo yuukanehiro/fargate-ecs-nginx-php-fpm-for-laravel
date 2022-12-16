@@ -21,7 +21,7 @@
         "secretOptions": [
           {
             "name": "apikey",
-            "valueFrom": "/laravel/common/datadog/dd_api_key"
+            "valueFrom": "/sample-product/common/datadog/dd_api_key"
           }
         ]
       },
@@ -125,7 +125,7 @@
         },
         "secretOptions": [{
           "name": "apikey",
-          "valueFrom": "/laravel/common/datadog/dd_api_key"
+          "valueFrom": "/sample-product/common/datadog/dd_api_key"
         }]
       },
       "entryPoint": null,
@@ -175,45 +175,45 @@
       "secrets": [
         {
           "name": "APP_KEY",
-          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/APP_KEY"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/APP_KEY"
         },
         {
           "name": "DB_HOST",
-          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_HOST"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_HOST"
         },
         {
           "name": "DB_PORT",
-          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_PORT"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_PORT"
         },
         {
           "name": "DB_DATABASE",
-          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_DATABASE"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_DATABASE"
         },
         {
           "name": "DB_USERNAME",
-          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_USERNAME"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_USERNAME"
         },
         {
           "name": "DB_PASSWORD",
-          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_PASSWORD"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_PASSWORD"
         },
         {
           "name": "AWS_ACCESS_KEY_ID",
-          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/AWS_ACCESS_KEY_ID"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/AWS_ACCESS_KEY_ID"
         },
         {
           "name": "AWS_SECRET_ACCESS_KEY",
-          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/AWS_SECRET_ACCESS_KEY"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/AWS_SECRET_ACCESS_KEY"
         },
         {
           "name": "AWS_DEFAULT_REGION",
-          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/AWS_DEFAULT_REGION"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/AWS_DEFAULT_REGION"
         }
       ],
       "environment": [
         {
           "name" : "APP_NAME",
-          "value" : "Laravel"
+          "value" : "sample-product"
         },
         {
           "name" : "APP_ENV",
@@ -335,7 +335,7 @@
       "secrets": [
         {
           "name": "DD_API_KEY",
-          "valueFrom": "/laravel/common/datadog/dd_api_key"
+          "valueFrom": "/sample-product/common/datadog/dd_api_key"
         }
       ]
     },
@@ -373,7 +373,7 @@
       "environment": [
         {
           "name": "APPMESH_VIRTUAL_NODE_NAME",
-          "value": "arn:aws:appmesh:SED_TARGET_AWS_REGION:SED_TARGET_AWS_ACCOUNT_ID:mesh/laravel-SED_TARGET_ENVIRONMENT/virtualNode/internal-app-api-SED_TARGET_ENVIRONMENT"
+          "value": "arn:aws:appmesh:SED_TARGET_AWS_REGION:SED_TARGET_AWS_ACCOUNT_ID:mesh/sample-product-SED_TARGET_ENVIRONMENT/virtualNode/internal-app-api-SED_TARGET_ENVIRONMENT"
         },
         {
           "name": "ENVOY_LOG_LEVEL",
