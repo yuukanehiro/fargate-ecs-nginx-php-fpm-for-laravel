@@ -1,9 +1,9 @@
 {
   "ipcMode": null,
-  "executionRoleArn": "arn:aws:iam::AWS_ACCOUNT_ID:role/ecs-service-role-develop",
+  "executionRoleArn": "arn:aws:iam::SED_TARGET_AWS_ACCOUNT_ID:role/internal-app-api-ecs-exec-role-SED_TARGET_ENVIRONMENT",
   "containerDefinitions": [
     {
-      "name": "service-api-nginx-develop",
+      "name": "internal-app-api-nginx-SED_TARGET_ENVIRONMENT",
       "dnsSearchDomains": null,
       "environmentFiles": null,
       "logConfiguration": {
@@ -13,15 +13,17 @@
           "Name": "datadog",
           "Host": "http-intake.logs.datadoghq.com",
           "TLS": "on",
-          "dd_service": "service-api",
-          "dd_source": "service-api-nginx",
-          "dd_tags": "Service:service-api,Env:develop",
+          "dd_service": "internal-app-api",
+          "dd_source": "internal-app-api-nginx",
+          "dd_tags": "Service:internal-app-api,Env:SED_TARGET_ENVIRONMENT",
           "provider": "ecs"
         },
-        "secretOptions": [{
-          "name": "apikey",
-          "valueFrom": "/app/common/datadog/dd_api_key"
-        }]
+        "secretOptions": [
+          {
+            "name": "apikey",
+            "valueFrom": "/laravel/common/datadog/dd_api_key"
+          }
+        ]
       },
       "entryPoint": null,
       "portMappings": [
@@ -48,9 +50,9 @@
       "resourceRequirements": null,
       "ulimits": [
         {
-            "name": "nofile",
-            "softLimit": 703358,
-            "hardLimit": 703358
+          "name": "nofile",
+          "softLimit": 703358,
+          "hardLimit": 703358
         }
       ],
       "dnsServers": null,
@@ -67,7 +69,7 @@
       "memoryReservation": null,
       "volumesFrom": [
         {
-          "sourceContainer": "service-api-php-fpm-develop",
+          "sourceContainer": "internal-app-api-php-fpm-SED_TARGET_ENVIRONMENT",
           "readOnly": true
         }
       ],
@@ -77,8 +79,12 @@
       "firelensConfiguration": null,
       "dependsOn": [
         {
-          "containerName": "service-api-php-fpm-develop",
+          "containerName": "internal-app-api-php-fpm-SED_TARGET_ENVIRONMENT",
           "condition": "START"
+        },
+        {
+          "containerName": "envoy",
+          "condition": "HEALTHY"
         }
       ],
       "disableNetworking": null,
@@ -101,7 +107,7 @@
       "privileged": null
     },
     {
-      "name": "service-api-php-fpm-develop",
+      "name": "internal-app-api-php-fpm-SED_TARGET_ENVIRONMENT",
       "dnsSearchDomains": null,
       "portMappings": [],
       "environmentFiles": null,
@@ -112,14 +118,14 @@
           "Name": "datadog",
           "Host": "http-intake.logs.datadoghq.com",
           "TLS": "on",
-          "dd_service": "service-api",
-          "dd_source": "service-api-nginx",
-          "dd_tags": "Service:service-api,Env:develop",
+          "dd_service": "internal-app-api",
+          "dd_source": "internal-app-api-nginx",
+          "dd_tags": "Service:internal-app-api,Env:SED_TARGET_ENVIRONMENT",
           "provider": "ecs"
         },
         "secretOptions": [{
           "name": "apikey",
-          "valueFrom": "/app/common/datadog/dd_api_key"
+          "valueFrom": "/laravel/common/datadog/dd_api_key"
         }]
       },
       "entryPoint": null,
@@ -130,9 +136,9 @@
       "resourceRequirements": null,
       "ulimits": [
         {
-            "name": "nofile",
-            "softLimit": 703358,
-            "hardLimit": 703358
+          "name": "nofile",
+          "softLimit": 703358,
+          "hardLimit": 703358
         }
       ],
       "dnsServers": null,
@@ -169,27 +175,39 @@
       "secrets": [
         {
           "name": "APP_KEY",
-          "valueFrom": "/app/develop/ecs/service-api/env/APP_KEY"
+          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/APP_KEY"
         },
         {
           "name": "DB_HOST",
-          "valueFrom": "/app/develop/ecs/service-api/env/DB_HOST"
+          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_HOST"
         },
         {
           "name": "DB_PORT",
-          "valueFrom": "/app/develop/ecs/service-api/env/DB_PORT"
+          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_PORT"
         },
         {
           "name": "DB_DATABASE",
-          "valueFrom": "/app/develop/ecs/service-api/env/DB_DATABASE"
+          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_DATABASE"
         },
         {
           "name": "DB_USERNAME",
-          "valueFrom": "/app/develop/ecs/service-api/env/DB_USERNAME"
+          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_USERNAME"
         },
         {
           "name": "DB_PASSWORD",
-          "valueFrom": "/app/develop/ecs/service-api/env/DB_PASSWORD"
+          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_PASSWORD"
+        },
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/AWS_ACCESS_KEY_ID"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/AWS_SECRET_ACCESS_KEY"
+        },
+        {
+          "name": "AWS_DEFAULT_REGION",
+          "valueFrom": "/laravel/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/AWS_DEFAULT_REGION"
         }
       ],
       "environment": [
@@ -242,18 +260,6 @@
           "value" : "120"
         },
         {
-          "name" : "REDIS_HOST",
-          "value" : "app-dev.ukevnq.ng.0001.apne1.cache.amazonaws.com"
-        },
-        {
-          "name" : "REDIS_PASSWORD",
-          "value" : ""
-        },
-        {
-          "name" : "REDIS_PORT",
-          "value" : "6379"
-        },
-        {
           "name" : "MAIL_DRIVER",
           "value" : "smtp"
         },
@@ -279,6 +285,10 @@
         },
         {
           "name" : "MAIL_ENCRYPTION",
+          "value" : ""
+        },
+        {
+          "name" : "AWS_BUCKET",
           "value" : ""
         }
       ]
@@ -325,9 +335,103 @@
       "secrets": [
         {
           "name": "DD_API_KEY",
-          "valueFrom": "/app/common/datadog/dd_api_key"
+          "valueFrom": "/laravel/common/datadog/dd_api_key"
         }
       ]
+    },
+    {
+      "name": "envoy",
+      "image": "111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.1.0-prod",
+      "user": "1337",
+      "essential": true,
+      "cpu": 64,
+      "memoryReservation": 256,
+      "ulimits": [
+        {
+          "name": "nofile",
+          "hardLimit": 15000,
+          "softLimit": 15000
+        }
+      ],
+      "portMappings": [
+        {
+          "containerPort": 9901,
+          "hostPort": 9901,
+          "protocol": "tcp"
+        },
+        {
+          "containerPort": 15000,
+          "hostPort": 15000,
+          "protocol": "tcp"
+        },
+        {
+          "containerPort": 15001,
+          "hostPort": 15001,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "APPMESH_VIRTUAL_NODE_NAME",
+          "value": "arn:aws:appmesh:SED_TARGET_AWS_REGION:SED_TARGET_AWS_ACCOUNT_ID:mesh/laravel-SED_TARGET_ENVIRONMENT/virtualNode/internal-app-api-SED_TARGET_ENVIRONMENT"
+        },
+        {
+          "name": "ENVOY_LOG_LEVEL",
+          "value": "info"
+        },
+        {
+          "name": "APPMESH_XDS_ENDPOINT",
+          "value": ""
+        },
+        {
+          "name": "ENABLE_ENVOY_XRAY_TRACING",
+          "value": "1"
+        },
+        {
+          "name": "ENABLE_ENVOY_STATS_TAGS",
+          "value": "1"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/SED_TARGET_ENVIRONMENT/containers/internal-app-api/envoy",
+          "awslogs-region": "SED_TARGET_AWS_REGION",
+          "awslogs-stream-prefix": "envoy"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -s http://localhost:9901/server_info | grep state | grep -q LIVE"
+        ],
+        "interval": 5,
+        "timeout": 2,
+        "retries": 3
+      }
+    },
+    {
+      "name": "xray-daemon",
+      "image": "amazon/aws-xray-daemon",
+      "user": "1337",
+      "essential": true,
+      "cpu": 32,
+      "memoryReservation": 256,
+      "portMappings": [
+        {
+          "hostPort": 2000,
+          "containerPort": 2000,
+          "protocol": "udp"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/SED_TARGET_ENVIRONMENT/containers/internal-app-api/xray-daemon",
+          "awslogs-region": "SED_TARGET_AWS_REGION",
+          "awslogs-stream-prefix": "xray"
+        }
+      }
     },
     {
       "name": "log_router",
@@ -343,8 +447,8 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/develop/containers/service-api/fluentbit",
-          "awslogs-region": "ap-northeast-1",
+          "awslogs-group": "/ecs/SED_TARGET_ENVIRONMENT/containers/internal-app-api/fluentbit",
+          "awslogs-region": "SED_TARGET_AWS_REGION",
           "awslogs-stream-prefix": "fluentbit"
         }
       },
@@ -358,13 +462,13 @@
   ],
   "placementConstraints": [],
   "memory": "4096",
-  "taskRoleArn": "arn:aws:iam::AWS_ACCOUNT_ID:role/ecs-service-role-develop",
+  "taskRoleArn": "arn:aws:iam::SED_TARGET_AWS_ACCOUNT_ID:role/internal-app-api-ecs-task-role-SED_TARGET_ENVIRONMENT",
   "compatibilities": [
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:AWS_ACCOUNT_ID:task-definition/service-api-develop",
-  "family": "service-api-develop",
+  "taskDefinitionArn": "arn:aws:ecs:SED_TARGET_AWS_REGION:SED_TARGET_AWS_ACCOUNT_ID:task-definition/internal-app-api-SED_TARGET_ENVIRONMENT",
+  "family": "internal-app-api-SED_TARGET_ENVIRONMENT",
   "requiresAttributes": [
     {
       "targetId": null,
@@ -382,7 +486,7 @@
       "targetId": null,
       "targetType": null,
       "value": null,
-      "name": "com.amazonaws.ecs.capability.ecr-service"
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
     },
     {
       "targetId": null,
@@ -422,10 +526,43 @@
   "networkMode": "awsvpc",
   "runtimePlatform": null,
   "cpu": "2048",
-  "revision": 19,
+  "revision": null,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
-  "proxyConfiguration": null,
+  "proxyConfiguration": {
+    "type": "APPMESH",
+    "containerName": "envoy",
+    "properties": [
+      {
+        "name": "AppPorts",
+        "value": "80"
+      },
+      {
+        "name": "EgressIgnoredIPs",
+        "value": "169.254.170.2,169.254.169.254"
+      },
+      {
+        "name": "EgressIgnoredPorts",
+        "value": "5500"
+      },
+      {
+        "name": "IgnoredUID",
+        "value": "1337"
+      },
+      {
+        "name": "IgnoredGID",
+        "value": "999"
+      },
+      {
+        "name": "ProxyEgressPort",
+        "value": "15001"
+      },
+      {
+        "name": "ProxyIngressPort",
+        "value": "15000"
+      }
+    ]
+  },
   "volumes": [
     {
       "name": "php-fpm-socket"

@@ -20,9 +20,9 @@ phases:
       - aws --version
       - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
       - echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
-      - IMAGE_NAME_NGINX=service-api-nginx-${ENVIRONMENT}
-      - IMAGE_NAME_PHP_FPM=service-api-php-fpm-${ENVIRONMENT}
-      - IMAGE_NAME_FLUENTBIT=service-api-fluentbit-${ENVIRONMENT}
+      - IMAGE_NAME_NGINX=internal-app-api-nginx-${ENVIRONMENT}
+      - IMAGE_NAME_PHP_FPM=internal-app-api-php-fpm-${ENVIRONMENT}
+      - IMAGE_NAME_FLUENTBIT=internal-app-api-fluentbit-${ENVIRONMENT}
       - REPOSITORY_URI_NGINX=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME_NGINX}
       - REPOSITORY_URI_PHP_FPM=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME_PHP_FPM}
       - REPOSITORY_URI_FLUENTBIT=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME_FLUENTBIT}
@@ -50,7 +50,7 @@ phases:
       - docker push ${REPOSITORY_URI_FLUENTBIT}:$IMAGE_TAG
       - echo Writing image definitions file...
       - echo ${ENVIRONMENT}
-      - cat ./ecs/environments/${ENVIRONMENT}/task_definition_template.json | sed -e s@\<REPOSITORY_URI_NGINX\>@$REPOSITORY_URI_NGINX:$IMAGE_TAG@ -e s@\<REPOSITORY_URI_FLUENTBIT\>@$REPOSITORY_URI_FLUENTBIT:$IMAGE_TAG@ -e s@\<REPOSITORY_URI_PHP_FPM\>@$REPOSITORY_URI_PHP_FPM:$IMAGE_TAG@ -e s@\<ENVIRONMENT\>@$ENVIRONMENT@ -e "s@AWS_ACCOUNT_ID@$AWS_ACCOUNT_ID@g" > ./ecs/environments/${ENVIRONMENT}/task_definition.json
+      - cat ./ecs/environments/${ENVIRONMENT}/task_definition_template.json | sed -e s@\<REPOSITORY_URI_NGINX\>@$REPOSITORY_URI_NGINX:$IMAGE_TAG@ -e s@\<REPOSITORY_URI_FLUENTBIT\>@$REPOSITORY_URI_FLUENTBIT:$IMAGE_TAG@ -e s@\<REPOSITORY_URI_PHP_FPM\>@$REPOSITORY_URI_PHP_FPM:$IMAGE_TAG@ -e s@\<ENVIRONMENT\>@$ENVIRONMENT@ -e s@SED_TARGET_AWS_ACCOUNT_ID@$AWS_ACCOUNT_ID@g -e s@SED_TARGET_ENVIRONMENT@$ENVIRONMENT@g -e s@SED_TARGET_AWS_REGION@$AWS_REGION@g > ./ecs/environments/${ENVIRONMENT}/task_definition.json
       - cat ./ecs/environments/${ENVIRONMENT}/task_definition.json
 artifacts:
   files:
