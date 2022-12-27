@@ -8,7 +8,7 @@ ARG PHP_FPM_CONTAINER_WWW_DATA_GROUP_ID=82
 RUN if [ "${ENVIRONMENT}" = "develop" -o "${ENVIRONMENT}" = "staging" ]; then \
         apt-get install -y curl; \
 fi
-RUN apt-get -y update && && apt-get clean
+RUN apt-get -y update && apt-get clean
 
 
 RUN usermod -u ${PHP_FPM_CONTAINER_WWW_DATA_USER_ID} www-data && \
