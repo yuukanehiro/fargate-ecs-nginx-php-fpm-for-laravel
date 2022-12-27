@@ -21,7 +21,7 @@
         "secretOptions": [
           {
             "name": "apikey",
-            "valueFrom": "/sample-product/common/datadog/dd_api_key"
+            "valueFrom": "/SED_TARGET_PRODUCT_NAME/common/datadog/dd_api_key"
           }
         ]
       },
@@ -125,7 +125,7 @@
         },
         "secretOptions": [{
           "name": "apikey",
-          "valueFrom": "/sample-product/common/datadog/dd_api_key"
+          "valueFrom": "/SED_TARGET_PRODUCT_NAME/common/datadog/dd_api_key"
         }]
       },
       "entryPoint": null,
@@ -175,45 +175,45 @@
       "secrets": [
         {
           "name": "APP_KEY",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/APP_KEY"
+          "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/APP_KEY"
         },
         {
           "name": "DB_HOST",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_HOST"
+          "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_HOST"
         },
         {
           "name": "DB_PORT",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_PORT"
+          "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_PORT"
         },
         {
           "name": "DB_DATABASE",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_DATABASE"
+          "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_DATABASE"
         },
         {
           "name": "DB_USERNAME",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_USERNAME"
+          "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_USERNAME"
         },
         {
           "name": "DB_PASSWORD",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_PASSWORD"
+          "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_PASSWORD"
         },
         {
           "name": "AWS_ACCESS_KEY_ID",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/AWS_ACCESS_KEY_ID"
+          "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/AWS_ACCESS_KEY_ID"
         },
         {
           "name": "AWS_SECRET_ACCESS_KEY",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/AWS_SECRET_ACCESS_KEY"
+          "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/AWS_SECRET_ACCESS_KEY"
         },
         {
           "name": "AWS_DEFAULT_REGION",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/AWS_DEFAULT_REGION"
+          "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/AWS_DEFAULT_REGION"
         }
       ],
       "environment": [
         {
           "name" : "APP_NAME",
-          "value" : "sample-product"
+          "value" : "SED_TARGET_PRODUCT_NAME"
         },
         {
           "name" : "APP_ENV",
@@ -335,7 +335,7 @@
       "secrets": [
         {
           "name": "DD_API_KEY",
-          "valueFrom": "/sample-product/common/datadog/dd_api_key"
+          "valueFrom": "/SED_TARGET_PRODUCT_NAME/common/datadog/dd_api_key"
         }
       ]
     },
@@ -373,7 +373,7 @@
       "environment": [
         {
           "name": "APPMESH_VIRTUAL_NODE_NAME",
-          "value": "arn:aws:appmesh:SED_TARGET_AWS_REGION:SED_TARGET_AWS_ACCOUNT_ID:mesh/sample-product-SED_TARGET_ENVIRONMENT/virtualNode/SED_TARGET_APP_NAME-SED_TARGET_ENVIRONMENT"
+          "value": "arn:aws:appmesh:SED_TARGET_AWS_REGION:SED_TARGET_AWS_ACCOUNT_ID:mesh/SED_TARGET_PRODUCT_NAME-SED_TARGET_ENVIRONMENT/virtualNode/SED_TARGET_APP_NAME-SED_TARGET_ENVIRONMENT"
         },
         {
           "name": "ENVOY_LOG_LEVEL",

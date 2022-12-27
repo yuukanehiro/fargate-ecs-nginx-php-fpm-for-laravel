@@ -4,6 +4,7 @@ env:
   variables:
     AWS_REGION: ap-northeast-1
     AWS_ACCOUNT_ID: 090123123123
+    PRODUCT_NAME: sample-product
     APP_NAME: internal-api
   parameter-store:
     DOCKER_USER: /app/common/docker_hub/user
@@ -37,7 +38,9 @@ phases:
       - echo Writing image definitions file...
       - echo ${ENVIRONMENT}
       # テンプレートからtask definitionを生成
-      - cat ./ecs/environments/${ENVIRONMENT}/task_definition_template.json | sed -e s@\<REPOSITORY_URI_NGINX\>@$REPOSITORY_URI_NGINX:$IMAGE_TAG@ -e s@\<REPOSITORY_URI_FLUENTBIT\>@$REPOSITORY_URI_FLUENTBIT:$IMAGE_TAG@ -e s@\<REPOSITORY_URI_PHP_FPM\>@$REPOSITORY_URI_PHP_FPM:$IMAGE_TAG@ -e s@SED_TARGET_AWS_ACCOUNT_ID@$AWS_ACCOUNT_ID@g -e s@SED_TARGET_ENVIRONMENT@$ENVIRONMENT@g -e s@SED_TARGET_AWS_REGION@$AWS_REGION@g -e s@SED_TARGET_APP_NAME@$APP_NAME@g -e s@SED_TARGET_EGRESS_IGNORED_PORT_RDS_MYSQL@$EGRESS_IGNORED_PORT_RDS_MYSQL@g -e s@SED_TARGET_EGRESS_IGNORED_PORT_ELASTICACHE_REDIS@$EGRESS_IGNORED_PORT_ELASTICACHE_REDIS@g > ./ecs/environments/${ENVIRONMENT}/task_definition.json
+      - cat ./ecs/environments/${ENVIRONMENT}/task_definition_template.json | sed -e s@\<REPOSITORY_URI_NGINX\>@$REPOSITORY_URI_NGINX:$IMAGE_TAG@ -e s@\<REPOSITORY_URI_FLUENTBIT\>@$REPOSITORY_URI_FLUENTBIT:$IMAGE_TAG@ -e s@\<REPOSITORY_URI_PHP_FPM\>@$REPOSITORY_URI_PHP_FPM:$IMAGE_TAG@ -e s@SED_TARGET_AWS_ACCOUNT_ID@$AWS_ACCOUNT_ID@g -e s@SED_TARGET_ENVIRONMENT@$ENVIRONMENT@g -e s@SED_TARGET_AWS_REGION@$AWS_REGION@g -e s@SED_TARGET_PRODUCT_NAME@$PRODUCT_NAME@g -e s@SED_TARGET_APP_NAME@$APP_NAME@g -e s@SED_TARGET_EGRESS_IGNORED_PORT_RDS_MYSQL@$EGRESS_IGNORED_PORT_RDS_MYSQL@g -e s@SED_TARGET_EGRESS_IGNORED_PORT_ELASTICACHE_REDIS@$EGRESS_IGNORED_PORT_ELASTICACHE_REDIS@g > ./ecs/environments/${ENVIRONMENT}/task_definition.json
+      # テンプレートからappspec.yamlを生成
+      - cat ./ecs/environments/${ENVIRONMENT}/appspec_template.yaml | sed -e s@SED_TARGET_APP_NAME@$APP_NAME@g > ./ecs/environments/${ENVIRONMENT}/appspec.yaml
       # fluentbit設定ファイル生成
       - cat ./ecs/environments/${ENVIRONMENT}/docker/fluentbit/etc/extra_template.conf | sed -e s@SED_TARGET_ENVIRONMENT@$ENVIRONMENT@g -e s@SED_TARGET_AWS_REGION@$AWS_REGION@g -e s@SED_TARGET_APP_NAME@$APP_NAME@g > ./ecs/environments/${ENVIRONMENT}/docker/fluentbit/etc/extra.conf
       # デバッグ
