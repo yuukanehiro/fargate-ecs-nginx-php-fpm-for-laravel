@@ -1,9 +1,9 @@
 {
   "ipcMode": null,
-  "executionRoleArn": "arn:aws:iam::SED_TARGET_AWS_ACCOUNT_ID:role/internal-app-api-ecs-exec-role-SED_TARGET_ENVIRONMENT",
+  "executionRoleArn": "arn:aws:iam::SED_TARGET_AWS_ACCOUNT_ID:role/SED_TARGET_APP_NAME-ecs-exec-role-SED_TARGET_ENVIRONMENT",
   "containerDefinitions": [
     {
-      "name": "internal-app-api-nginx-SED_TARGET_ENVIRONMENT",
+      "name": "SED_TARGET_APP_NAME-nginx-SED_TARGET_ENVIRONMENT",
       "dnsSearchDomains": null,
       "environmentFiles": null,
       "logConfiguration": {
@@ -13,9 +13,9 @@
           "Name": "datadog",
           "Host": "http-intake.logs.datadoghq.com",
           "TLS": "on",
-          "dd_service": "internal-app-api",
-          "dd_source": "internal-app-api-nginx",
-          "dd_tags": "Service:internal-app-api,Env:SED_TARGET_ENVIRONMENT",
+          "dd_service": "SED_TARGET_APP_NAME",
+          "dd_source": "SED_TARGET_APP_NAME-nginx",
+          "dd_tags": "Service:SED_TARGET_APP_NAME,Env:SED_TARGET_ENVIRONMENT",
           "provider": "ecs"
         },
         "secretOptions": [
@@ -69,7 +69,7 @@
       "memoryReservation": null,
       "volumesFrom": [
         {
-          "sourceContainer": "internal-app-api-php-fpm-SED_TARGET_ENVIRONMENT",
+          "sourceContainer": "SED_TARGET_APP_NAME-php-fpm-SED_TARGET_ENVIRONMENT",
           "readOnly": true
         }
       ],
@@ -79,7 +79,7 @@
       "firelensConfiguration": null,
       "dependsOn": [
         {
-          "containerName": "internal-app-api-php-fpm-SED_TARGET_ENVIRONMENT",
+          "containerName": "SED_TARGET_APP_NAME-php-fpm-SED_TARGET_ENVIRONMENT",
           "condition": "START"
         },
         {
@@ -107,7 +107,7 @@
       "privileged": null
     },
     {
-      "name": "internal-app-api-php-fpm-SED_TARGET_ENVIRONMENT",
+      "name": "SED_TARGET_APP_NAME-php-fpm-SED_TARGET_ENVIRONMENT",
       "dnsSearchDomains": null,
       "portMappings": [],
       "environmentFiles": null,
@@ -118,9 +118,9 @@
           "Name": "datadog",
           "Host": "http-intake.logs.datadoghq.com",
           "TLS": "on",
-          "dd_service": "internal-app-api",
-          "dd_source": "internal-app-api-nginx",
-          "dd_tags": "Service:internal-app-api,Env:SED_TARGET_ENVIRONMENT",
+          "dd_service": "SED_TARGET_APP_NAME",
+          "dd_source": "SED_TARGET_APP_NAME-nginx",
+          "dd_tags": "Service:SED_TARGET_APP_NAME,Env:SED_TARGET_ENVIRONMENT",
           "provider": "ecs"
         },
         "secretOptions": [{
@@ -175,39 +175,39 @@
       "secrets": [
         {
           "name": "APP_KEY",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/APP_KEY"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/APP_KEY"
         },
         {
           "name": "DB_HOST",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_HOST"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_HOST"
         },
         {
           "name": "DB_PORT",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_PORT"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_PORT"
         },
         {
           "name": "DB_DATABASE",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_DATABASE"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_DATABASE"
         },
         {
           "name": "DB_USERNAME",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_USERNAME"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_USERNAME"
         },
         {
           "name": "DB_PASSWORD",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/DB_PASSWORD"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_PASSWORD"
         },
         {
           "name": "AWS_ACCESS_KEY_ID",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/AWS_ACCESS_KEY_ID"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/AWS_ACCESS_KEY_ID"
         },
         {
           "name": "AWS_SECRET_ACCESS_KEY",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/AWS_SECRET_ACCESS_KEY"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/AWS_SECRET_ACCESS_KEY"
         },
         {
           "name": "AWS_DEFAULT_REGION",
-          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/internal-app-api/env/AWS_DEFAULT_REGION"
+          "valueFrom": "/sample-product/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/AWS_DEFAULT_REGION"
         }
       ],
       "environment": [
@@ -373,7 +373,7 @@
       "environment": [
         {
           "name": "APPMESH_VIRTUAL_NODE_NAME",
-          "value": "arn:aws:appmesh:SED_TARGET_AWS_REGION:SED_TARGET_AWS_ACCOUNT_ID:mesh/sample-product-SED_TARGET_ENVIRONMENT/virtualNode/internal-app-api-SED_TARGET_ENVIRONMENT"
+          "value": "arn:aws:appmesh:SED_TARGET_AWS_REGION:SED_TARGET_AWS_ACCOUNT_ID:mesh/sample-product-SED_TARGET_ENVIRONMENT/virtualNode/SED_TARGET_APP_NAME-SED_TARGET_ENVIRONMENT"
         },
         {
           "name": "ENVOY_LOG_LEVEL",
@@ -395,7 +395,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/SED_TARGET_ENVIRONMENT/containers/internal-app-api/envoy",
+          "awslogs-group": "/ecs/SED_TARGET_ENVIRONMENT/containers/SED_TARGET_APP_NAME/envoy",
           "awslogs-region": "SED_TARGET_AWS_REGION",
           "awslogs-stream-prefix": "envoy"
         }
@@ -427,7 +427,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/SED_TARGET_ENVIRONMENT/containers/internal-app-api/xray-daemon",
+          "awslogs-group": "/ecs/SED_TARGET_ENVIRONMENT/containers/SED_TARGET_APP_NAME/xray-daemon",
           "awslogs-region": "SED_TARGET_AWS_REGION",
           "awslogs-stream-prefix": "xray"
         }
@@ -447,7 +447,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/SED_TARGET_ENVIRONMENT/containers/internal-app-api/fluentbit",
+          "awslogs-group": "/ecs/SED_TARGET_ENVIRONMENT/containers/SED_TARGET_APP_NAME/fluentbit",
           "awslogs-region": "SED_TARGET_AWS_REGION",
           "awslogs-stream-prefix": "fluentbit"
         }
@@ -462,13 +462,13 @@
   ],
   "placementConstraints": [],
   "memory": "4096",
-  "taskRoleArn": "arn:aws:iam::SED_TARGET_AWS_ACCOUNT_ID:role/internal-app-api-ecs-task-role-SED_TARGET_ENVIRONMENT",
+  "taskRoleArn": "arn:aws:iam::SED_TARGET_AWS_ACCOUNT_ID:role/SED_TARGET_APP_NAME-ecs-task-role-SED_TARGET_ENVIRONMENT",
   "compatibilities": [
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:SED_TARGET_AWS_REGION:SED_TARGET_AWS_ACCOUNT_ID:task-definition/internal-app-api-SED_TARGET_ENVIRONMENT",
-  "family": "internal-app-api-SED_TARGET_ENVIRONMENT",
+  "taskDefinitionArn": "arn:aws:ecs:SED_TARGET_AWS_REGION:SED_TARGET_AWS_ACCOUNT_ID:task-definition/SED_TARGET_APP_NAME-SED_TARGET_ENVIRONMENT",
+  "family": "SED_TARGET_APP_NAME-SED_TARGET_ENVIRONMENT",
   "requiresAttributes": [
     {
       "targetId": null,

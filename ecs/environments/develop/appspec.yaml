@@ -5,5 +5,5 @@ Resources:
       Properties:
         TaskDefinition: "<TASK_DEFINITION>"
         LoadBalancerInfo:
-          ContainerName: "internal-app-api-nginx-develop"
+          ContainerName: "internal-api-nginx-develop"
           ContainerPort: "80"
