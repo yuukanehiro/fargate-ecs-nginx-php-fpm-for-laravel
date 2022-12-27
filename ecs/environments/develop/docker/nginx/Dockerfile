@@ -18,8 +18,6 @@ COPY ./ecs/environments/${ENVIRONMENT}/docker/nginx/conf.d /etc/nginx/conf.d
 COPY ./ecs/environments/${ENVIRONMENT}/docker/nginx/conf/nginx.conf /etc/nginx/nginx.conf
 RUN nginx -t
 
-RUN apt -y update
-
 RUN mkdir -p /var/www/app/public
 COPY ./src/public /var/www/app/public
 WORKDIR /var/www/app/public
