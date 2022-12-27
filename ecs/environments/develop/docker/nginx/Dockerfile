@@ -4,8 +4,12 @@ ARG ENVIRONMENT="local" // override by CI/CD! ["develop"|"staging"|"production"]
 ARG PHP_FPM_CONTAINER_WWW_DATA_USER_ID=82
 ARG PHP_FPM_CONTAINER_WWW_DATA_GROUP_ID=82
 
-# デバッグ用にcurlインストール
-RUN apt-get update && apt-get install -y curl && apt-get clean
+# デバッグ用curl
+RUN if [ "${ENVIRONMENT}" = "develop" -o "${ENVIRONMENT}" = "staging" ]; then \
+        apt-get install -y curl; \
+fi
+RUN apt-get -y update && && apt-get clean
+
 
 RUN usermod -u ${PHP_FPM_CONTAINER_WWW_DATA_USER_ID} www-data && \
     groupmod -g ${PHP_FPM_CONTAINER_WWW_DATA_GROUP_ID} www-data
