@@ -543,7 +543,7 @@
       },
       {
         "name": "EgressIgnoredPorts",
-        "value": "5500"
+        "value": "SED_TARGET_EGRESS_IGNORED_PORT_RDS_MYSQL,SED_TARGET_EGRESS_IGNORED_PORT_ELASTICACHE_REDIS"
       },
       {
         "name": "IgnoredUID",

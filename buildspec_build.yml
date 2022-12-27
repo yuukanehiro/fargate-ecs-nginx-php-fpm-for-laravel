@@ -6,6 +6,10 @@ env:
     AWS_ACCOUNT_ID: 090123123123
     PRODUCT_NAME: sample-product
     APP_NAME: internal-api
+    # EgressIgnoredPorts@App Mesh
+    # App Mesh内ではコンテナとAWS内サービスと連携時にenvoyプロキシを通さないPort番号指定必要
+    EGRESS_IGNORED_PORT_RDS_MYSQL: 3306
+    EGRESS_IGNORED_PORT_ELASTICACHE_REDIS: 6379
   parameter-store:
     DOCKER_USER: /app/common/docker_hub/user
     DOCKER_TOKEN: /app/common/docker_hub/token
