@@ -4,26 +4,13 @@
   "containerDefinitions": [
     {
       "name": "SED_TARGET_APP_NAME-nginx-SED_TARGET_ENVIRONMENT",
+      "image": "<REPOSITORY_URI_NGINX>",
       "dnsSearchDomains": null,
       "environmentFiles": null,
       "logConfiguration": {
         "logDriver": "awsfirelens",
         "secretOptions": null,
-        "options": {
-          "Name": "datadog",
-          "Host": "http-intake.logs.datadoghq.com",
-          "TLS": "on",
-          "dd_service": "SED_TARGET_APP_NAME",
-          "dd_source": "SED_TARGET_APP_NAME-nginx",
-          "dd_tags": "Service:SED_TARGET_APP_NAME,Env:SED_TARGET_ENVIRONMENT",
-          "provider": "ecs"
-        },
-        "secretOptions": [
-          {
-            "name": "apikey",
-            "valueFrom": "/SED_TARGET_PRODUCT_NAME/common/datadog/dd_api_key"
-          }
-        ]
+        "options": null
       },
       "entryPoint": null,
       "portMappings": [
@@ -31,16 +18,6 @@
           "hostPort": 80,
           "protocol": "tcp",
           "containerPort": 80
-        },
-        {
-          "hostPort": 5201,
-          "protocol": "tcp",
-          "containerPort": 5201
-        },
-        {
-          "hostPort": 5001,
-          "protocol": "tcp",
-          "containerPort": 5001
         }
       ],
       "command": null,
@@ -74,7 +51,6 @@
         }
       ],
       "stopTimeout": null,
-      "image": "<REPOSITORY_URI_NGINX>",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": [
@@ -114,19 +90,7 @@
       "logConfiguration": {
         "logDriver": "awsfirelens",
         "secretOptions": null,
-        "options": {
-          "Name": "datadog",
-          "Host": "http-intake.logs.datadoghq.com",
-          "TLS": "on",
-          "dd_service": "SED_TARGET_APP_NAME",
-          "dd_source": "SED_TARGET_APP_NAME-nginx",
-          "dd_tags": "Service:SED_TARGET_APP_NAME,Env:SED_TARGET_ENVIRONMENT",
-          "provider": "ecs"
-        },
-        "secretOptions": [{
-          "name": "apikey",
-          "valueFrom": "/SED_TARGET_PRODUCT_NAME/common/datadog/dd_api_key"
-        }]
+        "options": null
       },
       "entryPoint": null,
       "command": null,
@@ -182,6 +146,10 @@
           "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_HOST"
         },
         {
+          "name": "DB_READ_HOST",
+          "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_READ_HOST"
+        },
+        {
           "name": "DB_PORT",
           "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_PORT"
         },
@@ -196,24 +164,12 @@
         {
           "name": "DB_PASSWORD",
           "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/DB_PASSWORD"
-        },
-        {
-          "name": "AWS_ACCESS_KEY_ID",
-          "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/AWS_ACCESS_KEY_ID"
-        },
-        {
-          "name": "AWS_SECRET_ACCESS_KEY",
-          "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/AWS_SECRET_ACCESS_KEY"
-        },
-        {
-          "name": "AWS_DEFAULT_REGION",
-          "valueFrom": "/SED_TARGET_PRODUCT_NAME/SED_TARGET_ENVIRONMENT/ecs/SED_TARGET_APP_NAME/env/AWS_DEFAULT_REGION"
         }
       ],
       "environment": [
         {
           "name" : "APP_NAME",
-          "value" : "SED_TARGET_PRODUCT_NAME"
+          "value" : "Laravel"
         },
         {
           "name" : "APP_ENV",
@@ -229,10 +185,14 @@
         },
         {
           "name" : "LOG_CHANNEL",
-          "value" : "stack"
+          "value" : "stdout"
         },
         {
           "name" : "DEBUG_REQUEST",
+          "value" : "false"
+        },
+        {
+          "name" : "DEBUG_REQUEST_STDOUT",
           "value" : "true"
         },
         {
@@ -244,98 +204,28 @@
           "value" : "log"
         },
         {
-          "name" : "CACHE_DRIVER",
-          "value" : "file"
+          "name" : "REDIS_HOST",
+          "value" : "SED_TARGET_PRODUCT_NAME.ukevnq.ng.0001.apne1.cache.amazonaws.com"
         },
         {
-          "name" : "QUEUE_CONNECTION",
-          "value" : "sync"
+          "name" : "REDIS_PASSWORD",
+          "value" : ""
         },
         {
-          "name" : "SESSION_DRIVER",
-          "value" : "file"
-        },
-        {
-          "name" : "SESSION_LIFETIME",
-          "value" : "120"
+          "name" : "REDIS_PORT",
+          "value" : "6379"
         },
         {
           "name" : "MAIL_DRIVER",
           "value" : "smtp"
         },
         {
-          "name" : "MAIL_HOST",
-          "value" : "smtp.mailtrap.io"
-        },
-        {
-          "name" : "MAIL_DRIVER",
-          "value" : "smtp"
-        },
-        {
-          "name" : "MAIL_PORT",
-          "value" : "2525"
-        },
-        {
-          "name" : "MAIL_USERNAME",
-          "value" : ""
-        },
-        {
-          "name" : "MAIL_PASSWORD",
-          "value" : ""
-        },
-        {
-          "name" : "MAIL_ENCRYPTION",
-          "value" : ""
-        },
-        {
-          "name" : "AWS_BUCKET",
-          "value" : ""
-        }
-      ]
-    },
-    {
-      "image": "datadog/agent:latest",
-      "logConfiguration": {
-        "logDriver": "awsfirelens",
-        "options": null
-      },
-      "cpu": 10,
-      "memory": 256,
-      "mountPoints": [],
-      "portMappings": [
-        {
-          "hostPort": 8126,
-          "protocol": "tcp",
-          "containerPort": 8126
-        }
-      ],
-      "environment": [
-        {
-          "name" : "ECS_FARGATE",
+          "name" : "DEBUG_EXCEPTION",
           "value" : "true"
         },
         {
-          "name" : "DD_PROCESS_AGENT_ENABLED",
+          "name" : "DEBUG_LOG",
           "value" : "true"
-        },
-        {
-          "name": "DD_APM_ENABLED",
-          "value": "true"
-        },
-        {
-          "name": "DD_APM_NON_LOCAL_TRAFFIC",
-          "value": "true"
-        },
-        {
-          "name" : "DD_DOGSTATSD_NON_LOCAL_TRAFFIC",
-          "value" : "true"
-        }
-      ],
-      "name": "datadog-agent",
-      "secrets": [
-        {
-          "name": "DD_API_KEY",
-          "valueFrom": "/SED_TARGET_PRODUCT_NAME/common/datadog/dd_api_key"
         }
       ]
     },
