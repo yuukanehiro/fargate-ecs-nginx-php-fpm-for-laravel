@@ -10,6 +10,9 @@ env:
     # App Mesh内ではコンテナとAWS内サービスと連携時にenvoyプロキシを通さないPort番号指定必要
     EGRESS_IGNORED_PORT_RDS_MYSQL: 3306
     EGRESS_IGNORED_PORT_ELASTICACHE_REDIS: 6379
+    # ログ保持期間
+    LOG_RETENTION_DAY_DEFAULT: 1
+    LOG_RETENTION_DAY_PRODUCTION: 30
   parameter-store:
     DOCKER_USER: /app/common/docker_hub/user
     DOCKER_TOKEN: /app/common/docker_hub/token
@@ -57,10 +60,11 @@ phases:
       - cat ./ecs/environments/${ENVIRONMENT}/appspec_template.yaml |
         sed -e s@SED_TARGET_APP_NAME@$APP_NAME@g > ./ecs/environments/${ENVIRONMENT}/appspec.yaml
       # fluentbit設定ファイル生成
-      - FLUENTBIT_LOG_RETENTION=1
+      ## ログ保持期間設定
+      - FLUENTBIT_LOG_RETENTION=${LOG_RETENTION_DAY_DEFAULT}
       - |
         if [ $ENVIRONMENT = "production" ]; then
-          FLUENTBIT_LOG_RETENTION=30
+          FLUENTBIT_LOG_RETENTION=${LOG_RETENTION_DAY_PRODUCTION}
         fi
       - cat ./ecs/environments/${ENVIRONMENT}/docker/fluentbit/etc/extra_template.conf |
         sed -e s@SED_TARGET_ENVIRONMENT@$ENVIRONMENT@g
