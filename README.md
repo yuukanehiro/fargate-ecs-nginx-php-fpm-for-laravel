@@ -1,11 +1,11 @@
 # fargate-nginx-php-fpm-for-laravel
 
 
-# Features
+## Features
 
 ・Laravel on AWS ECS Fargate
 
-# ECS Task Containers
+## ECS Task Containers
 
 - Nginx
 - PHP-FPM
@@ -14,7 +14,7 @@
 - aws-appmesh-envoy
 
 
-# Usage
+## Usage
 
 Build and deploy with Codebuild using CodePipeline
 
