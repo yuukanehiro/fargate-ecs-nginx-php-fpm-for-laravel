@@ -31,8 +31,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
   && COMPOSER_MEMORY_LIMIT=-1 /usr/bin/composer install --no-dev
 
 RUN php artisan view:clear \
-    && php artisan cache:clear \
-    && php artisan config:clear
+  && php artisan cache:clear \
+  && php artisan config:clear
 
 # nginxコンテナに共有する
 RUN mkdir -p /var/run/php-fpm
@@ -40,6 +40,6 @@ VOLUME ["/var/run/php-fpm"]
 
 # VOLUMEでマウントするとroot権限になるので権限設定
 RUN chown -R www-data:www-data storage \
-    && chown -R www-data:www-data bootstrap/cache \
-    && chmod 2755 storage \
-    && chown -R www-data:www-data /var/www/app
+  && chown -R www-data:www-data bootstrap/cache \
+  && chmod 2755 storage \
+  && chown -R www-data:www-data /var/www/app
