@@ -65,6 +65,7 @@ phases:
       - cat ./ecs/environments/${ENVIRONMENT}/docker/fluentbit/etc/extra_template.conf |
         sed -e s@SED_TARGET_ENVIRONMENT@$ENVIRONMENT@g
         -e s@SED_TARGET_FLUENTBIT_LOG_RETENTION@$FLUENTBIT_LOG_RETENTION@g
+        -e s@SED_TARGET_APP_NAME@$APP_NAME@g
         -e s@SED_TARGET_AWS_REGION@$AWS_REGION@g > ./ecs/environments/${ENVIRONMENT}/docker/fluentbit/etc/extra.conf
       # デバッグ
       - cat ./ecs/environments/${ENVIRONMENT}/task_definition.json
