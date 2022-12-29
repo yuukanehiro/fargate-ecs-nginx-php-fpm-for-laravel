@@ -13,6 +13,13 @@
 - amazon/aws-xray-daemon
 - aws-appmesh-envoy
 
+## CodePipeline configuration example
+
+1. CodeCommit
+2. CodeBuild(using ./buildspec_build.yml)
+3. Manual Apply
+4. CodeBuild(using ./buildspec_migrate.yml)
+5. CodeDeploy(Deploy ECS)
 
 ## Usage
 
