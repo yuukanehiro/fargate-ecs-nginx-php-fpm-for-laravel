@@ -25,7 +25,6 @@
 
 - Build and deploy with Codebuild using CodePipeline
 - Please use CodeBuild to build with CodePipeline. Then you need to set the following environment variables.
-- Docker HubのtokenをParameter store
 
 ### Require CodeBuild ENVIRONMENT
 key:  
