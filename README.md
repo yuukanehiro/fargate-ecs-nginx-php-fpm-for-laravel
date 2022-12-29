@@ -30,4 +30,8 @@ enum:[develop|staging|production]
 ### Require Setting ./buildspec_build.yml
 
 - Set it directly to the variable in the config file
-- Please set in Parameter Store in the configuration file
+- Set in Parameter Store in the configuration file
+
+### Require Setting ./buildspec_migrate.yml
+
+- Set in Parameter Store in the configuration file
