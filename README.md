@@ -5,7 +5,7 @@
 
 ・Laravel on AWS ECS Fargate
 
-## ECS Task Containers
+### ECS Task Containers
 
 - Nginx
 - PHP-FPM
@@ -20,6 +20,8 @@
 3. Manual Apply
 4. CodeBuild(using ./buildspec_migrate.yml)
 5. CodeDeploy(Deploy ECS)
+
+I will also prepare an implementation in Terraform, so please wait:relaxed:
 
 ## Usage
 
